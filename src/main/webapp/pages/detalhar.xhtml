@@ -13,7 +13,7 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<p:growl id="message" />
 	<h:form id="formList">
 		<p:panel header="Sistema de Vagas Especiais - AMT-Caucaia">
-			<p:dataTable paginator="true" value="#{pessoaBean.pessoas}"
+			<p:dataTable  value="#{pessoaBean.pessoas}"
 				var="pessoa" id="table">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('edtPessoa').show();"

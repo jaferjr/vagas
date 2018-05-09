@@ -11,9 +11,17 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
 	<ui:define name="content">
+
 		<h:form>
+
 			<p:panel header="Cadastro - Idoso/PNE" widgetVar="formulario">
+
 				<h:panelGrid columns="2">
+
+					<p:outputLabel value="Pesquisa:" />
+					<p:commandButton icon="ui-icon-search" title="Pesquisa"
+						oncomplete="PF('busca').show();">
+					</p:commandButton>
 
 
 					<p:outputLabel value="Cadastro:" />
@@ -23,10 +31,12 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					</h:selectOneMenu>
 
 
+
+
 					<p:outputLabel value="CPF: " />
 
 					<p:inputMask mask="999.999.999-99" size="25" maxlength="11"
-						value="#{buscaBean.pessoa.cpf}" />
+						value="#{pessoaBean.pessoa.cpf}" />
 
 					<p:outputLabel value="RG: " />
 
@@ -40,9 +50,9 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						value="#{pessoaBean.pessoa.nome}" />
 
 					<p:outputLabel value="Data de Nascimento: " />
-					<p:calendar value="#{pessoaBean.pessoa.nascimento}" 
-				navigator="true" mindate="01/01/1910" maxdate="01/01/2000" pattern="dd/MM/yyyy"
-				pagedate="01/01/1953"/> 
+					<p:calendar value="#{pessoaBean.pessoa.nascimento}"
+						navigator="true" mindate="01/01/1910" maxdate="01/01/2000"
+						pattern="dd/MM/yyyy" pagedate="01/01/1953" />
 
 					<p:outputLabel value="Logradouro " />
 					<p:inputText size="30" maxlength="30"
@@ -53,12 +63,11 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 						value="#{pessoaBean.pessoa.bairro}" />
 
 					<p:outputLabel value="Cidade: " />
-					<p:inputText size="30" maxlength="30"
-						value="Caucaia" readonly="true"  />
+					<p:inputText size="30" maxlength="30" value="Caucaia"
+						readonly="true" />
 
 					<p:outputLabel value="Estado: " />
-					<p:inputText size="30" maxlength="30"
-						value="Ceará" readonly="true"/> 
+					<p:inputText size="30" maxlength="30" value="Ceará" readonly="true" />
 
 					<p:outputLabel value="CEP: " />
 					<p:inputMask mask="99.999-999" size="30" maxlength="8"
@@ -73,7 +82,7 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 					<p:outputLabel value="Telefone Celular " />
 					<p:inputMask mask="(99)99999-9999" size="25" maxlength="11"
 						value="#{pessoaBean.pessoa.celular}" />
-						
+
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
@@ -88,6 +97,41 @@ EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
+
+		<p:dialog widgetVar="busca" draggable="false" resizable="false"
+			modal="true">
+			<h:form>
+				<div style="margin-top: 5px; margin-bottom: 20px">
+					<p:inputText id="nome" size="40" value="#{pessoaBean.pessoa.nome}"
+						placeholder="Nome da pessoa" />
+
+					<p:spacer width="10px" />
+
+					<p:commandButton value="Pesquisar" oncomplete="PF('busca').show;" />
+				</div>
+
+				<p:dataTable value="#{selecaoClienteBean.clientesFiltrados}"
+					var="cliente" emptyMessage="Nenhum cliente encontrado." rows="10"
+					paginator="true" paginatorAlwaysVisible="false"
+					paginatorPosition="bottom">
+
+					<p:column headerText="Código"
+						style="text-align: center; width: 40px">
+						<h:outputText value="#{cliente.id}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{cliente.nome}" />
+					</p:column>
+					<p:column style="width: 30px; text-align: center">
+						<p:commandButton icon="ui-icon-check" title="Selecionar"
+							action="#{selecaoClienteBean.selecionar(cliente)}"
+							process="@this" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+		</p:dialog>
 
 	</ui:define>
 

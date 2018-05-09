@@ -3,7 +3,9 @@ package br.jafer.vagas.bean;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -11,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.primefaces.context.RequestContext;
 
 import br.jafer.vagas.dao.PessoaDAO;
 import br.jafer.vagas.entity.Pessoa;
@@ -29,7 +32,6 @@ public class PessoaBean implements Serializable{
 	
 	
 	
-	
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
@@ -44,6 +46,16 @@ public class PessoaBean implements Serializable{
 	
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+	
+	public void abrirDialogo() {
+		Map<String, Object> opcoes = new HashMap<>();
+		opcoes.put("Modal", true);
+		opcoes.put("resizable", false);
+		opcoes.put("contentHeight",470);
+		
+		RequestContext.getCurrentInstance().openDialog("selecaoPessoa", opcoes,null);
+		
 	}
 	
 	@PostConstruct
